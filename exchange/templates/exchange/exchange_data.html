@@ -1,0 +1,106 @@
+{#{% extends 'exchange/index.html' %}#}
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+</head>
+{% block body %}
+<div class="container">
+
+
+    <div id="myform">
+        <input id="base_curr" value="USD" />
+        <input id="target_curr" value="INR" />
+        <input id="amount" value="1" />
+        <input id="max_wait_time" value="5" />
+        <input id="start_date" value="2018-07-10" />
+        <input type="text" id="finalresult" />
+        <button type="button" id="submitbutton">press</button>
+    </div>
+
+    <div>
+
+        <canvas id="line-chart" width="300" height="100"></canvas>
+    </div>
+
+
+
+
+</div>
+
+<script>
+    $("#submitbutton").click(function() {
+
+       $("#myform").hide();
+
+        var base_cur = $("#base_curr").val();
+        var target_cur = $("#target_curr").val();
+        var amoun = $("#amount").val();
+        var max_wait_tim = $("#max_wait_time").val();
+        var start_dat = $("#start_date").val();
+
+        $.ajax({
+            type: "POST",
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+            },
+            url: "",
+            async: true,
+            data: {
+                base_curr: base_cur,
+                target_curr: target_cur,
+                amount: amoun,
+                max_wait_time: max_wait_tim,
+                start_date: start_dat
+            },
+            success: function(data) {
+
+
+
+                new Chart(document.getElementById("line-chart"), {
+                    type: data['type'],
+                    data: {
+                        labels: data['data']['labels'],
+                        datasets: [{
+                            data: data['data']['datasets'][0]['data'],
+                            label: data['data']['datasets'][0]['label'],
+                            borderColor: data['data']['datasets'][0]['borderColor'],
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'World population per region (in millions)'
+                        }
+                    }
+                });
+
+
+
+
+
+            }
+        });
+    });
+
+</script>
+
+<script>
+
+</script>
+
+{% endblock %}
+{#{% load rest_framework %}#}
+{##}
+{#<html><body>#}
+{##}
+{#<h1>Profile - {{ profile.name }}</h1>#}
+{##}
+{#<form action="{% url 'profile-detail' pk=profile.pk %}" method="POST">#}
+{#    {% csrf_token %}#}
+{#    {% render_form serializer %}#}
+{#    <input type="submit" value="Save">#}
+{#</form>#}
+{##}
+{#</body></html>#}
