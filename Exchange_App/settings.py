@@ -26,7 +26,7 @@ SECRET_KEY = 'lh&2r6ir++c_1+4yfn7bl)^arw6_jsna()1p=y*#3inuqj50_n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['currency-exchange-rate-app.herokuapp.com']
+ALLOWED_HOSTS = ['currency-exchange-rate-app.herokuapp.com', '127.0.0.1']
 
 
 # Application definition

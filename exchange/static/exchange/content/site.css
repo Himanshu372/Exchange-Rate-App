@@ -60,3 +60,15 @@ input[type=submit] {
     margin-top: 0;
   }
 }
+
+
+.container {
+  width: 500px;
+  clear: both;
+}
+
+.container input {
+  width: 100%;
+  clear: both;
+}
+

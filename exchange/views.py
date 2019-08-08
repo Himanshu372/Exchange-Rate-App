@@ -95,7 +95,7 @@ class ListRateDataView(viewsets.ModelViewSet):
             end_date = datetime.strftime(end_date, '%Y-%m-%d')
             start_date = datetime.strftime(start_date, '%Y-%m-%d')
 
-            avg_rate = "select avg(rate) as avg_rate from exchange_ratedata where date between '{}' and '{}'".format(start_date, end_date)
+            avg_rate = "select avg(rate) as avg_rate from exchange_ratedata where base_currency= '{}' and target_currency = '{}' and date between '{}' and '{}'".format(base_curr, target_curr, start_date, end_date)
             cursor = connection.cursor()
             avg_rate = cursor.execute(avg_rate).fetchall()[0][0]
             # if len(avg_rate) == 0:
@@ -107,6 +107,7 @@ class ListRateDataView(viewsets.ModelViewSet):
             # result[end_date] = avg_rate
 
             to_date = to_date + relativedelta.relativedelta(days = 1)
+        print(result)
         return Response(result)
 
 

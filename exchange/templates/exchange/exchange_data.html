@@ -1,21 +1,40 @@
 {#{% extends 'exchange/index.html' %}#}
-
+{% load static %}
 <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 </head>
 {% block body %}
 <div class="container">
 
 
     <div id="myform">
-        <input id="base_curr" value="USD" />
-        <input id="target_curr" value="INR" />
-        <input id="amount" value="1" />
-        <input id="max_wait_time" value="5" />
-        <input id="start_date" value="2018-07-10" />
-        <input type="text" id="finalresult" />
-        <button type="button" id="submitbutton">press</button>
+{#        <input id="base_curr" value="USD" />#}
+{#        <input id="target_curr" value="INR" />#}
+{#        <input id="amount" value="1" />#}
+{#        <input id="max_wait_time" value="5" />#}
+{#        <input id="start_date" value="2018-07-10" />#}
+{#        <input type="text" id="finalresult" />#}
+{#        <button type="button" id="submitbutton">press</button>#}
+        <form>
+          <label>Base_Curr</label>
+          <input type="text" id="base_curr"><br />
+          <label>Target_Curr</label>
+          <input type="text" id="target_curr"><br />
+          <label>Amount</label>
+          <input type="text" id="amount"><br />
+          <label>Max_wait_time</label>
+          <input type="text" id="max_wait_time"><br />
+          <label>Start_date</label>
+          <input type="text" id="start_date"><br />
+            <button type="button" id="submitbutton">SUBMIT</button>
+        </form>
+
+{#            <form class="post-form">{% csrf_token %}#}
+{#                {{ form.as_p }}#}
+{#            </form>#}
+{#            <button type="button" id="submitbutton">SUBMIT</button>#}
     </div>
 
     <div>
@@ -41,9 +60,6 @@
 
         $.ajax({
             type: "POST",
-            beforeSend: function(xhr, settings) {
-                xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
-            },
             url: "",
             async: true,
             data: {
@@ -71,7 +87,7 @@
                     options: {
                         title: {
                             display: true,
-                            text: 'World population per region (in millions)'
+                            text: 'Exchange Rate Forecast'
                         }
                     }
                 });
